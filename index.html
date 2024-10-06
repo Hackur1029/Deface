@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacked</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Courier New', monospace;
+            background-color: #000;
+            color: #0f0;
+            overflow: hidden;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(0,255,0,0.1) 0%, transparent 50%),
+                linear-gradient(0deg, #000 0%, #001100 100%);
+        }
+        h1 {
+            font-size: 3em;
+            text-shadow: 0 0 10px #0f0;
+            animation: glitch 1s linear infinite;
+        }
+        .warning {
+            font-size: 1.5em;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .countdown {
+            font-size: 2em;
+            margin-top: 20px;
+            text-shadow: 0 0 5px #0f0;
+        }
+        .code {
+            font-size: 1em;
+            margin-top: 40px;
+            opacity: 0.7;
+        }
+        @keyframes glitch {
+            2%, 64% {
+                transform: translate(2px,0) skew(0deg);
+            }
+            4%, 60% {
+                transform: translate(-2px,0) skew(0deg);
+            }
+            62% {
+                transform: translate(0,0) skew(5deg); 
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SYSTEM HACKED</h1>
+        <p class="warning">Your System Has Been Compromised.</p>
+        <p class="countdown">All systems will be locked in T-minus <span id="timer">10</span> seconds</p>
+        <p class="code">ERR_CODE: 0x000000FC</p>
+    </div>
+    <script>
+        function typeWriter(txt, elem, i=0) {
+            if (i < txt.length) {
+                elem.innerHTML += txt.charAt(i);
+                i++;
+                setTimeout(() => typeWriter(txt, elem, i), 50);
+            }
+        }
+
+        function startCountdown(duration, display) {
+            let timer = duration;
+            let countdownInterval = setInterval(function () {
+                display.textContent = timer;
+
+                if (--timer < 0) {
+                    clearInterval(countdownInterval);
+                    display.textContent = "LOCKED";
+                }
+            }, 1000);
+        }
+
+        window.onload = function() {
+            const warning = document.querySelector('.warning');
+            warning.innerHTML = '';
+            typeWriter("Your System Has Been Compromised.", warning);
+
+            let tenSeconds = 10,
+                display = document.querySelector('#timer');
+            startCountdown(tenSeconds, display);
+        }
+    </script>
+</body>
+</html>
